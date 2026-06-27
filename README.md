@@ -8,6 +8,26 @@ https://github.com/user-attachments/assets/ee329916-0f40-4aa2-8c3a-54263b5bab88
 
 Inspired by [OrangeX4/Latex-Sympy-Calculator](https://github.com/OrangeX4/Latex-Sympy-Calculator).
 
+## Installation (lazy.nvim)
+
+```lua
+{
+  "SPLYASHKA/lampy.nvim",
+  build = ":UpdateRemotePlugins",
+  keys = {
+    { "<leader>le", ":LampyEval<CR>",        mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy eval visual selection" },
+    { "<leader>lE", ":LampyEvalReplace<CR>", mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy eval replace" },
+    { "<leader>lf", ":LampyFactor<CR>",      mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy factor" },
+    { "<leader>lx", ":LampyExpand<CR>",      mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy expand" },
+    { "<leader>ld", ":LampyDefineVar<CR>",   mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy define variable" },
+    { "<leader>ln", ":LampyNumerical<CR>",   mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy numerical" },
+    { "<leader>lp", ":LampyPython<CR>",      mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy python" },
+    { "<leader>ls", ":LampyShowVars<CR>",    ft = { "markdown", "tex" }, desc = "Lampy show variables" },
+    { "<leader>lR", ":LampyResetVars<CR>",   ft = { "markdown", "tex" }, desc = "Lampy reset variables" },
+  },
+}
+```
+
 ## Commands
 
 All commands operate on visual selection.
@@ -29,3 +49,6 @@ All commands operate on visual selection.
 ```sh
 pip install latex2sympy2 pynvim
 ```
+## License
+
+MIT
