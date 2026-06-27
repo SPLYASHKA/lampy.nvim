@@ -1,9 +1,9 @@
 # lampy.nvim
 ![logo](logo.png)
 
-<video src="lampy.demo.mp4" controls width="800"></video>
-
 Neovim remote plugin (Python3) wrapping `latex2sympy2` for symbolic LaTeX calculation.
+
+https://github.com/user-attachments/assets/dc6b1167-5d94-4540-b355-5c2cd840ac19
 
 Inspired by [OrangeX4/Latex-Sympy-Calculator](https://github.com/OrangeX4/Latex-Sympy-Calculator).
 
