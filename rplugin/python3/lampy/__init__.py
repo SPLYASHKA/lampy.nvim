@@ -1,6 +1,6 @@
 import pynvim
 
-from .engine import evaluate, factor_latex, expand_latex
+from .engine import evaluate, factor_latex, expand_latex, numerical_latex, python_latex, reset_vars, latex2sympy, variances
 
 
 @pynvim.plugin
@@ -30,14 +30,21 @@ class LampyPlugin:
 
     def _replace_span(self, span, text):
         (r1, c1), (r2, c2) = span
-        lines = self.nvim.funcs.nvim_buf_get_lines(0, r1, r2 + 1, False)
-        if len(lines) == 1:
-            line = lines[0]
-            self.nvim.funcs.setline(r1 + 1, line[:c1] + text + line[c2:])
+        old = self.nvim.funcs.nvim_buf_get_lines(0, r1, r2 + 1, False)
+        parts = text.split("\n")
+
+        if len(parts) == 1:
+            first = old[0][:c1] + parts[0] + old[-1][c2:]
+            self.nvim.funcs.setline(r1 + 1, [first])
+            if r2 > r1:
+                self.nvim.funcs.deletebufline(0, r1 + 2, r2 + 1)
         else:
-            result = [lines[0][:c1] + text] + lines[1:-1] + [lines[-1][c2:]]
+            first = old[0][:c1] + parts[0]
+            last = parts[-1] + old[-1][c2:]
+            result = [first] + parts[1:-1] + [last]
             self.nvim.funcs.setline(r1 + 1, result)
-            if len(result) < r2 - r1 + 1:
+            excess = (r2 - r1 + 1) - len(result)
+            if excess > 0:
                 self.nvim.funcs.deletebufline(0, r1 + len(result) + 1, r2 + 1)
 
     def _transform_selection(self, transform):
@@ -65,3 +72,37 @@ class LampyPlugin:
     @pynvim.command("LampyExpand", range="", nargs="*")
     def expand_command(self, _, _range):
         self._transform_selection(expand_latex)
+
+    @pynvim.command("LampyNumerical", range="", nargs="*")
+    def numerical_command(self, _, _range):
+        self._transform_selection(numerical_latex)
+
+    @pynvim.command("LampyPython", range="", nargs="*")
+    def python_command(self, _, _range):
+        self._transform_selection(lambda text: f"{text} = {python_latex(text)}")
+
+    @pynvim.command("LampyDefineVar", range="", nargs="*")
+    def define_var_command(self, _, _range):
+        span = self._get_selection_span()
+        if span is None:
+            self.nvim.err_write("lampy: no selection\n")
+            return
+        try:
+            latex2sympy(self._extract_text(span))
+            self.nvim.out_write("lampy: variable defined\n")
+        except Exception as e:
+            self.nvim.err_write(f"lampy error: {e}\n")
+
+    @pynvim.command("LampyShowVars", range="", nargs="*")
+    def show_vars_command(self, _, _range):
+        if not variances:
+            self.nvim.out_write("lampy: no variables\n")
+            return
+        self.nvim.out_write("lampy variables:\n")
+        for k, v in variances.items():
+            self.nvim.out_write(f"  {k} = {v}\n")
+
+    @pynvim.command("LampyResetVars", range="", nargs="*")
+    def reset_vars_command(self, _, _range):
+        reset_vars()
+        self.nvim.out_write("lampy: variables cleared\n")
