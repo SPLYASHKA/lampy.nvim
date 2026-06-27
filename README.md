@@ -2,6 +2,7 @@
 ![logo](logo.png)
 
 Neovim remote plugin (Python3) wrapping `latex2sympy2` for symbolic LaTeX calculation.
+Select LaTeX expressions and evaluate or run sympy code — all inline.
 
 https://github.com/user-attachments/assets/ee329916-0f40-4aa2-8c3a-54263b5bab88
 
