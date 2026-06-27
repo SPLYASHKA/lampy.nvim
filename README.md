@@ -3,7 +3,7 @@
 
 Neovim remote plugin (Python3) wrapping `latex2sympy2` for symbolic LaTeX calculation.
 
-https://github.com/user-attachments/assets/dc6b1167-5d94-4540-b355-5c2cd840ac19
+https://github.com/user-attachments/assets/ee329916-0f40-4aa2-8c3a-54263b5bab88
 
 Inspired by [OrangeX4/Latex-Sympy-Calculator](https://github.com/OrangeX4/Latex-Sympy-Calculator).
 
