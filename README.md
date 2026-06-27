@@ -15,6 +15,7 @@ Inspired by [OrangeX4/Latex-Sympy-Calculator](https://github.com/OrangeX4/Latex-
   "SPLYASHKA/lampy.nvim",
   build = ":UpdateRemotePlugins",
   keys = {
+    -- example keymaps, change to your preference
     { "<leader>le", ":LampyEval<CR>",        mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy eval visual selection" },
     { "<leader>lE", ":LampyEvalReplace<CR>", mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy eval replace" },
     { "<leader>lf", ":LampyFactor<CR>",      mode = "x",                 ft = { "markdown", "tex" },    desc = "Lampy factor" },
@@ -49,6 +50,9 @@ All commands operate on visual selection.
 ```sh
 pip install latex2sympy2 pynvim
 ```
+
+After installing, run `:UpdateRemotePlugins` and restart Neovim. Run `:checkhealth lampy` to verify.
+
 ## License
 
 MIT
